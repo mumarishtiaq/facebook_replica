@@ -1,3 +1,4 @@
+import 'package:facebook_replica/home_view.dart';
 import 'package:facebook_replica/login_view.dart';
 import 'package:flutter/material.dart';
 
@@ -13,7 +14,9 @@ class FacebookReplica extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: "Facebook",
-      home: LoginView(),
+      // home: LoginView(),
+      home: HomeView(),
+
     );
   }
 }
