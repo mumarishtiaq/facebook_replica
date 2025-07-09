@@ -1,5 +1,6 @@
 import 'package:facebook_replica/Common/app_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class HomeView extends StatefulWidget {
@@ -18,39 +19,44 @@ class _HomeViewState extends State<HomeView> {
       body: SafeArea(
         child:
       Column(children: [
-        Padding(padding: EdgeInsets.symmetric(horizontal: 16 , vertical: 12),
+        Padding(padding: EdgeInsets.symmetric(horizontal: 16 , vertical: 2),
         child: 
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
 
              Text("facebook", 
-              style: GoogleFonts.roboto(color: AppColors.primaryBlue , fontWeight: FontWeight.bold , fontSize: 32 ,letterSpacing: 2),
+              style: GoogleFonts.roboto(color: AppColors.primaryBlue , fontWeight: FontWeight.bold , fontSize: 32 ,letterSpacing: 1),
               ),
 
               Row(
                 children: [
-                  _buildIconButton(Icons.add_box_outlined,false),
+                  _buildIconButton(Icons.add_box_outlined,false,0xFF9E9E9E),
                   SizedBox(width: 7,),
-                  _buildIconButton(Icons.search_rounded,true),
+                  _buildIconButton(Icons.search_rounded,true,0xFF9E9E9E),
                   SizedBox(width: 7,),
                   _buildMessengerIcon(),
 
 
                 ],
               ),
-            
           ],
         )
-        )
+        ),
+        //building navigation icons
+              _buildNavigationBar(),
+
+              //building input row
+              _buildInputRow(),
+
       ],),
       )
     );
   }
-
+ int _selectedIndex = 0;
 
 //custon methods 
-  Widget _buildIconButton(IconData icon , bool isbackground)
+  Widget _buildIconButton(IconData icon , bool isbackground , int col)
 {
   return Container(
     padding: EdgeInsets.all(5),
@@ -58,7 +64,7 @@ class _HomeViewState extends State<HomeView> {
       shape: BoxShape.circle,
       color: isbackground ? AppColors.lightGrey : AppColors.white
     ),
-    child: Icon(icon, color: Colors.black87 , size: 30,),
+    child: Icon(icon, color:  Color(col) , size: 30,),
   );
 }
 
@@ -67,7 +73,7 @@ Widget _buildMessengerIcon()
   return Stack(
     clipBehavior: Clip.none,
     children: [
-      _buildIconButton(Icons.message_sharp,true),
+      _buildIconButton(FontAwesomeIcons.facebookMessenger,true,0xFF757575),
 
       Positioned(right: -6 , top: -6,
         child: Container(
@@ -79,8 +85,119 @@ Widget _buildMessengerIcon()
           ),
           child: Text("3" , style: GoogleFonts.roboto(fontSize: 12 , color: AppColors.white),),
         )
-      )
+      ),
     ],
   );
 }
+
+Widget _buildNavigationBar()
+{
+ return Container(
+  padding: EdgeInsets.symmetric(horizontal: 3),
+  decoration: BoxDecoration(
+        color: Colors.white,
+        border: Border(
+          bottom: BorderSide(color: AppColors.borderGrey , width: 1)
+        )
+        
+      ),
+  child: Row(
+    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    children: [
+
+      _buildNavigationButton(0,Icons.home_outlined, 36),
+      
+      _buildNavigationButton(1,Icons.ondemand_video_rounded ,30),
+      _buildNavigationButton(2,Icons.group_outlined,33),
+      _buildNavigationButton(3,Icons.notifications_outlined,33),
+      _buildNavigationButton(4,Icons.store,33),
+      _buildNavigationButton(5,Icons.notifications_outlined,33),
+
+
+
+    ],
+  ),
+ );
+}
+
+Widget _buildNavigationButton(int index,IconData icon , double iconSize)
+{
+  bool isSelected = index == _selectedIndex;
+   return Column(
+    children: [
+   IconButton(
+    onPressed: () { _iconOnPress(index);},
+   icon: Icon(icon , color: isSelected ? AppColors.primaryBlue : AppColors.black87 , size: iconSize,),
+   ),
+
+   Container(
+    height: 3,width: 60,
+    decoration: BoxDecoration(
+      color: isSelected? AppColors.primaryBlue : Colors.transparent,
+      borderRadius: BorderRadius.circular(2)
+    ),
+   )
+    ]
+   );
+}
+
+void _iconOnPress(int index)
+{
+ setState(() {
+   _selectedIndex = index;
+ });
+}
+
+Widget _buildInputRow()
+{
+  return Container(
+    padding: EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+    decoration: BoxDecoration(
+      color: AppColors.white,
+      border: Border(
+        bottom: BorderSide(color: AppColors.borderGrey , width: 5)
+      )
+    ),
+    child: Row(
+      children: [
+         CircleAvatar(backgroundImage: NetworkImage("url"), radius: 20,),
+
+         SizedBox(width: 10,),
+
+        //  Expanded(
+        //   child: Container(
+        //     padding: EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+        //     child: OutlinedButton(onPressed: () {}, 
+        //     child: Text("What's on your mind?" ,
+        //     style: GoogleFonts.roboto(fontSize: 50),)
+        //     ),
+        //   ),
+        //   ),
+
+        Expanded(
+        child: Container(
+          padding: EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+          decoration: BoxDecoration(
+            border: Border.all(color: Colors.grey.shade300),
+            borderRadius: BorderRadius.circular(25),
+          ),
+          child: Text(
+            "What's on your mind?",
+            style: TextStyle(color: Colors.grey.shade700 , fontSize: 12),
+          ),
+        ),
+      ),
+
+         SizedBox(width: 20,),
+
+         IconButton(onPressed: () {}, 
+         icon: Icon(Icons.image, color: Colors.green)
+         ),
+         SizedBox(width: 5,),
+
+      ],
+    )
+  );
+}
+
 }
