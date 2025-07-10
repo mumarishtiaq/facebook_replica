@@ -14,8 +14,8 @@ class FacebookReplica extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: "Facebook",
-      home: LoginView(),
-      // home: HomeView(),
+      // home: LoginView(),
+      home: HomeView(),
 
     );
   }

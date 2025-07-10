@@ -1,7 +1,10 @@
 import 'package:facebook_replica/Common/app_colors.dart';
+import 'package:facebook_replica/stories_view.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
+
+
 
 class HomeView extends StatefulWidget {
   const HomeView({super.key});
@@ -49,11 +52,14 @@ class _HomeViewState extends State<HomeView> {
               //building input row
               _buildInputRow(),
 
+              buildStoriesList(),
+
       ],),
       )
     );
   }
  int _selectedIndex = 0;
+
 
 //custon methods 
   Widget _buildIconButton(IconData icon , bool isbackground , int col)
@@ -111,10 +117,7 @@ Widget _buildNavigationBar()
       _buildNavigationButton(2,Icons.group_outlined,33),
       _buildNavigationButton(3,Icons.notifications_outlined,33),
       _buildNavigationButton(4,Icons.store,33),
-      _buildNavigationButton(5,Icons.notifications_outlined,33),
-
-
-
+      _buildNavigationButton(5,Icons.menu,33),
     ],
   ),
  );
@@ -141,6 +144,8 @@ Widget _buildNavigationButton(int index,IconData icon , double iconSize)
    );
 }
 
+
+
 void _iconOnPress(int index)
 {
  setState(() {
@@ -160,33 +165,31 @@ Widget _buildInputRow()
     ),
     child: Row(
       children: [
-         CircleAvatar(backgroundImage: NetworkImage("url"), radius: 20,),
+         CircleAvatar(backgroundImage: AssetImage('assets/images/myPic.jpg'), radius: 20,),
 
          SizedBox(width: 10,),
 
-        //  Expanded(
-        //   child: Container(
-        //     padding: EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-        //     child: OutlinedButton(onPressed: () {}, 
-        //     child: Text("What's on your mind?" ,
-        //     style: GoogleFonts.roboto(fontSize: 50),)
-        //     ),
-        //   ),
-        //   ),
+         Expanded(
+          child: Container(height: 40,
+            child: OutlinedButton(onPressed: () {},
+            style: OutlinedButton.styleFrom(
+              shape: RoundedRectangleBorder(
+                side: BorderSide(
+                  color: AppColors.borderGrey
+                ),
+                borderRadius: BorderRadius.circular(25)
 
-        Expanded(
-        child: Container(
-          padding: EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-          decoration: BoxDecoration(
-            border: Border.all(color: Colors.grey.shade300),
-            borderRadius: BorderRadius.circular(25),
+              )
+            ), 
+            child: Align( alignment: Alignment.centerLeft,
+              child: Text("What's on your mind?" ,
+            style: TextStyle(color: AppColors.black87 , fontSize: 20),),
+            )
+            
+            ),
           ),
-          child: Text(
-            "What's on your mind?",
-            style: TextStyle(color: Colors.grey.shade700 , fontSize: 12),
           ),
-        ),
-      ),
+
 
          SizedBox(width: 20,),
 
@@ -201,3 +204,4 @@ Widget _buildInputRow()
 }
 
 }
+
