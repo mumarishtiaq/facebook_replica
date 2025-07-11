@@ -9,22 +9,80 @@ Widget buildStoriesList() {
       border: Border(bottom: BorderSide(color: AppColors.borderGrey, width: 5)),
     ),
     child: SizedBox(
-      height: 200,
+      height: 230,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         physics: BouncingScrollPhysics(),
         itemCount: 10,
         itemBuilder: (context, i) {
+          if(i == 0)
+          {
+            return _buildMyStoryCard();
+          }
           return _buildStoryTemplate(
             "Umar Ishtiaq",
             "assets/images/myPic.jpg",
             "assets/images/myPic.jpg",
-            true,
+            false,
           );
         },
       ),
     ),
   );
+}
+
+Widget _buildMyStoryCard()
+{
+return Padding(
+     padding: EdgeInsets.only(left: 12, top: 16, bottom: 16),
+     child: Container(
+      width: 110,
+      decoration: BoxDecoration(
+        shape: BoxShape.rectangle,
+        borderRadius: BorderRadius.circular(16),
+        color: AppColors.lightGrey
+      ),
+      child: Stack(
+        clipBehavior: Clip.none,
+          alignment: Alignment.topCenter,
+      children: [
+         ClipRRect(
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(16),topRight: Radius.circular(16)
+          ),
+          child: Image(
+            image: AssetImage('assets/images/myPic.jpg'), 
+            fit: BoxFit.cover,
+            height: 135,
+            width: double.infinity,
+            ),
+        ),
+         Positioned(
+          bottom: 45,
+              child: Container(
+                height: 35, width: 35,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: AppColors.primaryBlue,
+                  border: Border.all(width: 2 , color: AppColors.white)
+                ),
+                child: Center(child:  Icon(Icons.add , color: AppColors.white,),)
+              )
+            ),
+            Positioned(
+              bottom: 5,
+              child: Text("Create Story",
+              style: GoogleFonts.roboto(fontWeight: FontWeight.bold , color: AppColors.black87 , fontSize: 16),
+              )
+              )
+
+
+
+
+      ],
+      ),
+     )
+     );
 }
 
 Widget _buildStoryTemplate(
@@ -47,10 +105,10 @@ Widget _buildStoryTemplate(
         children: [
           //circle avatar of profile
           Positioned(
-            top: 8,
-            left: 8,
+            top: 12,
+            left: 12,
             child: CircleAvatar(
-              radius: 20,
+              radius: 18,
               backgroundImage: AssetImage(avatar),
               child: Container(
                 decoration: BoxDecoration(

@@ -1,4 +1,5 @@
 import 'package:facebook_replica/Common/app_colors.dart';
+import 'package:facebook_replica/posts_view.dart';
 import 'package:facebook_replica/stories_view.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -20,8 +21,8 @@ class _HomeViewState extends State<HomeView> {
     return  Scaffold(
       backgroundColor:AppColors.white,
       body: SafeArea(
-        child:
-      Column(children: [
+        child:SingleChildScrollView(
+          child: Column(children: [
         Padding(padding: EdgeInsets.symmetric(horizontal: 16 , vertical: 2),
         child: 
         Row(
@@ -54,7 +55,19 @@ class _HomeViewState extends State<HomeView> {
 
               buildStoriesList(),
 
-      ],),
+              // buildPostList(),
+              buildPostListOld(),
+             
+
+
+            
+
+
+
+
+
+      ],)
+        ),
       )
     );
   }
@@ -115,8 +128,8 @@ Widget _buildNavigationBar()
       
       _buildNavigationButton(1,Icons.ondemand_video_rounded ,30),
       _buildNavigationButton(2,Icons.group_outlined,33),
-      _buildNavigationButton(3,Icons.notifications_outlined,33),
       _buildNavigationButton(4,Icons.store,33),
+      _buildNavigationButton(3,Icons.notifications_outlined,33),
       _buildNavigationButton(5,Icons.menu,33),
     ],
   ),
@@ -165,7 +178,7 @@ Widget _buildInputRow()
     ),
     child: Row(
       children: [
-         CircleAvatar(backgroundImage: AssetImage('assets/images/myPic.jpg'), radius: 20,),
+         CircleAvatar(backgroundImage: AssetImage('assets/images/myPic.jpg'), radius: 22,),
 
          SizedBox(width: 10,),
 
