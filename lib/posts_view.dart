@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:facebook_replica/Common/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -17,6 +19,7 @@ Widget buildPostList(List posts) {
         post["image"],
         post["caption"],
         post["likesCount"],
+        post["pickedFile"],
       );
     },
   );
@@ -29,7 +32,11 @@ Widget _buildPostTemplate(
   String image,
   String caption,
   String likesCount,
+  File? pickedFile,
 ) {
+  if (pickedFile != null) {
+    print("Image Path anna bhai: ${pickedFile.path}");
+  }
   return Container(
     padding: EdgeInsets.symmetric(vertical: 10),
     width: double.infinity,
@@ -89,6 +96,13 @@ Widget _buildPostTemplate(
         ),
 
         Image.asset(image, width: double.infinity, fit: BoxFit.cover),
+        // pickedFile != null
+        //     ? Image.file(
+        //       File(pickedFile.path),
+        //       width: double.infinity,
+        //       fit: BoxFit.cover,
+        //     )
+        //     : Image.asset(image, width: double.infinity, fit: BoxFit.cover),
 
         // Reaction Row
         Padding(
