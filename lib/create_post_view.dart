@@ -15,7 +15,7 @@ class CreatePostView extends StatefulWidget {
 class _CreatePostViewState extends State<CreatePostView> {
   final TextEditingController _controller = TextEditingController();
   bool isTyping = false;
-  File? selectedImageFile;
+  File? selectedMediaFile;
 
   @override
   void initState() {
@@ -36,6 +36,7 @@ class _CreatePostViewState extends State<CreatePostView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColors.white,
       appBar: AppBar(
         title: Text("Create post"),
         actions: [
@@ -51,7 +52,7 @@ class _CreatePostViewState extends State<CreatePostView> {
                   isTyping ? AppColors.primaryBlue : Colors.grey.shade300,
               foregroundColor: isTyping ? AppColors.white : Colors.grey,
             ),
-            child: Text("POST"),
+            child: Text("Post"),
           ),
         ],
         backgroundColor: Colors.white,
@@ -106,8 +107,23 @@ class _CreatePostViewState extends State<CreatePostView> {
           Expanded(
             child: ListView(
               children: [
+
+                if(selectedMediaFile != null)
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Image.file(
+                      selectedMediaFile!,
+                      width: double.infinity,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+
+
+
+
                 _optionItem(Icons.photo, "Photo/video", Colors.green),
                 _optionItem(Icons.person_add, "Tag people", Colors.blue),
+
                 _optionItem(
                   Icons.emoji_emotions,
                   "Feeling/activity",
@@ -134,10 +150,13 @@ class _CreatePostViewState extends State<CreatePostView> {
       leading: Icon(icon, color: color),
       title: Text(text),
       onTap: () async {
-        selectedImageFile = await pickImageFromGallery();
+        selectedMediaFile = await pickImageFromGallery();
 
-        if (selectedImageFile != null) {
-          print("Image Path: ${selectedImageFile?.path}");
+        if (selectedMediaFile != null) {
+          print("Image Path: ${selectedMediaFile?.path}");
+          setState(() {
+            
+          });
         }
       },
     );
@@ -147,7 +166,7 @@ class _CreatePostViewState extends State<CreatePostView> {
     print(_controller.text);
     homeViewKey.currentState?.addPostInListAndUpdate(
       _controller.text,
-      selectedImageFile,
+      selectedMediaFile,
     );
     Navigator.pop(context);
   }

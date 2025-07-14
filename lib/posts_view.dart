@@ -95,14 +95,14 @@ Widget _buildPostTemplate(
           ),
         ),
 
-        Image.asset(image, width: double.infinity, fit: BoxFit.cover),
-        // pickedFile != null
-        //     ? Image.file(
-        //       File(pickedFile.path),
-        //       width: double.infinity,
-        //       fit: BoxFit.cover,
-        //     )
-        //     : Image.asset(image, width: double.infinity, fit: BoxFit.cover),
+        // Image.asset(image, width: double.infinity, fit: BoxFit.cover),
+        pickedFile != null
+            ? Image.file(
+              File(pickedFile.path),
+              width: double.infinity,
+              fit: BoxFit.cover,
+            )
+            : Image.asset(image, width: double.infinity, fit: BoxFit.cover),
 
         // Reaction Row
         Padding(
@@ -111,7 +111,7 @@ Widget _buildPostTemplate(
             children: [
               Icon(Icons.thumb_up, color: AppColors.primaryBlue, size: 18),
               SizedBox(width: 3),
-              Icon(Icons.heart_broken_rounded, color: Colors.pink, size: 18),
+              Icon(FontAwesomeIcons.solidHeart, color: Colors.pink, size: 18),
               SizedBox(width: 4),
               Text(likesCount),
             ],
