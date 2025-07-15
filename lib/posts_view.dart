@@ -5,8 +5,60 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-Widget buildPostList(List posts) {
-  return ListView.builder(
+class PostView extends StatefulWidget {
+
+   const PostView({super.key});
+
+  @override
+  State<PostView> createState() => PostViewState();
+
+
+  
+}
+
+class PostViewState extends State<PostView> {
+  final List<Map<String, dynamic>> posts = [
+    {
+      "avatar": "assets/images/avatars/men3.jpg",
+      "name": "Ali Raza",
+      "time": "2h ago",
+      "postMedia": "assets/images/posts/beach.jpg",
+      "caption": "Salt in the air, sand in my hair—vacation mode activated🌤️",
+      "likesCount": "120",
+      "pickedFile": null,
+    },
+    {
+      "avatar": "assets/images/avatars/girl4.jpg",
+      "name": "Hina Fatima",
+      "time": "23 min ago",
+      "postMedia": "assets/images/posts/pizza.jpg",
+      "caption": "Good food, good mood",
+      "likesCount": "500",
+      "pickedFile": null,
+    },
+    {
+      "avatar": "assets/images/avatars/girl3.jpg",
+      "name": "Ayesha khan",
+      "time": "23 min ago",
+      "postMedia": "assets/images/posts/painting.jpg",
+      "caption": "New painting I just finished 🎨",
+      "likesCount": "1K +",
+      "pickedFile": null,
+    },
+    {
+      "avatar": "assets/images/avatars/men2.jpg",
+      "name": "Bilal Rafique",
+      "time": "2d ago",
+      "postMedia": "assets/images/posts/diving.jpg",
+      "caption": "One jump. A thousand feelings. Would you try this?",
+      "likesCount": "5K +",
+      "pickedFile": null,
+    },
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView.builder(
     shrinkWrap: true,
     physics: NeverScrollableScrollPhysics(),
     itemCount: posts.length,
@@ -16,14 +68,31 @@ Widget buildPostList(List posts) {
         post["avatar"],
         post["name"],
         post["time"],
-        post["image"],
+        post["postMedia"],
         post["caption"],
         post["likesCount"],
         post["pickedFile"],
       );
     },
   );
-}
+  }
+
+  void addPostInListAndUpdate(String caption, File? selectedFile) {
+    setState(() {
+      posts.insert(0, {
+        "avatar": "assets/images/myPic.jpg",
+        "name": "Umer Ishtiaq",
+        "time": "Just now",
+        "postMedia": "assets/images/posts/hiking.jpg",
+        "caption": caption,
+        "likesCount": "0",
+        "pickedFile": selectedFile,
+      });
+    });
+  }
+
+
+
 
 Widget _buildPostTemplate(
   String avatar,
@@ -34,9 +103,7 @@ Widget _buildPostTemplate(
   String likesCount,
   File? pickedFile,
 ) {
-  if (pickedFile != null) {
-    print("Image Path anna bhai: ${pickedFile.path}");
-  }
+
   return Container(
     padding: EdgeInsets.symmetric(vertical: 10),
     width: double.infinity,
@@ -141,4 +208,5 @@ Widget _buildPostActionIcons(IconData icon, String label) {
       Text(label, style: GoogleFonts.roboto(color: AppColors.iconGrey)),
     ],
   );
+}
 }

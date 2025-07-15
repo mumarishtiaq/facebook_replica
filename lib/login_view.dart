@@ -3,10 +3,8 @@ import 'package:facebook_replica/home_view.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-final GlobalKey<HomeViewState> homeViewKey = GlobalKey<HomeViewState>();
-
 class LoginView extends StatefulWidget {
-  LoginView({super.key});
+  const LoginView({super.key});
 
   @override
   State<LoginView> createState() => _LoginViewState();
@@ -27,7 +25,7 @@ class _LoginViewState extends State<LoginView> {
 
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => HomeView(key: homeViewKey)),
+      MaterialPageRoute(builder: (context) => HomeView()),
     );
   }
 

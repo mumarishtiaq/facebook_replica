@@ -3,11 +3,12 @@ import 'dart:io';
 import 'package:facebook_replica/Common/app_colors.dart';
 import 'package:facebook_replica/home_view.dart';
 import 'package:facebook_replica/image_picker.dart';
-import 'package:facebook_replica/login_view.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:video_player/video_player.dart';
 
 class CreatePostView extends StatefulWidget {
+  const CreatePostView({super.key});
+
   @override
   State<CreatePostView> createState() => _CreatePostViewState();
 }
@@ -16,10 +17,13 @@ class _CreatePostViewState extends State<CreatePostView> {
   final TextEditingController _controller = TextEditingController();
   bool isTyping = false;
   File? selectedMediaFile;
+  VideoPlayerController? videoPlayerController;
+   bool isVideo = false;
 
   @override
   void initState() {
     super.initState();
+    videoPlayerController = null;
     _controller.addListener(() {
       setState(() {
         isTyping = _controller.text.trim().isNotEmpty;
@@ -29,6 +33,7 @@ class _CreatePostViewState extends State<CreatePostView> {
 
   @override
   void dispose() {
+    videoPlayerController?.dispose();
     _controller.dispose();
     super.dispose();
   }
@@ -111,11 +116,7 @@ class _CreatePostViewState extends State<CreatePostView> {
                 if(selectedMediaFile != null)
                   Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: Image.file(
-                      selectedMediaFile!,
-                      width: double.infinity,
-                      fit: BoxFit.cover,
-                    ),
+                    child:  isVideo ?buildVideoPlayer() : buildImagePreview(),
                   ),
 
 
@@ -150,24 +151,66 @@ class _CreatePostViewState extends State<CreatePostView> {
       leading: Icon(icon, color: color),
       title: Text(text),
       onTap: () async {
-        selectedMediaFile = await pickImageFromGallery();
+        selectedMediaFile = await pickMediaFromGallery();
 
         if (selectedMediaFile != null) {
-          print("Image Path: ${selectedMediaFile?.path}");
-          setState(() {
-            
-          });
+          _onMediaSelected();
         }
       },
     );
   }
 
+  Future<void> _onMediaSelected() async {
+    isVideo = isVideoFile(selectedMediaFile!.path);
+
+    if(isVideo)
+    {
+    videoPlayerController?.dispose();
+    videoPlayerController = VideoPlayerController.file(File(selectedMediaFile!.path));
+    await videoPlayerController?.initialize();
+    videoPlayerController?.play();
+    }
+  
+    setState(() {
+        
+      }); 
+  }
+
+   Widget buildVideoPlayer() {
+    if (videoPlayerController != null && videoPlayerController!.value.isInitialized) {
+      return AspectRatio(
+        aspectRatio: videoPlayerController!.value.aspectRatio,
+        child: VideoPlayer(videoPlayerController!),
+      );
+    } else {
+      return Container();
+    }
+  }
+
+  Widget buildImagePreview() {
+    if (selectedMediaFile != null) {
+      return Image.file(
+        selectedMediaFile!,
+        width: double.infinity,
+        fit: BoxFit.cover,
+      );
+    } else {
+       return Container();
+    }
+  }
+
   void _onPosted() {
-    print(_controller.text);
-    homeViewKey.currentState?.addPostInListAndUpdate(
+   postViewKey.currentState?.addPostInListAndUpdate(
       _controller.text,
       selectedMediaFile,
     );
+
+
+    
     Navigator.pop(context);
   }
+
+
 }
+
+

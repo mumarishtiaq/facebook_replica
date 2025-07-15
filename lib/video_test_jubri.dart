@@ -4,6 +4,8 @@ import 'package:image_picker/image_picker.dart';
 import 'package:video_player/video_player.dart';
 
 class VideoPickerScreen extends StatefulWidget {
+  const VideoPickerScreen({super.key});
+
   @override
   _VideoPickerScreenState createState() => _VideoPickerScreenState();
 }

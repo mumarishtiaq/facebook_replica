@@ -23,3 +23,8 @@ Future<File?> pickMediaFromGallery() async {
     return null; // No image selected
   }
 }
+
+bool isVideoFile(String filePath) {
+  final ext = filePath.split('.').last.toLowerCase();
+  return ext == 'mp4' || ext == 'mov' || ext == 'avi';
+}

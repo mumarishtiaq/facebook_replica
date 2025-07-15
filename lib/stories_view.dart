@@ -2,8 +2,83 @@ import 'package:facebook_replica/Common/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-Widget buildStoriesList(List stories) {
-  return Container(
+class StoriesView extends StatelessWidget {
+   StoriesView({super.key});
+
+  final List<Map<String, dynamic>> stories = [
+    {
+      'name': 'Emma Watson',
+      'avatar': 'assets/images/avatars/girl1.jpg',
+      'thumbnail':
+          'https://images.unsplash.com/photo-1519125323398-675f0ddb6308',
+      'isSeen': true,
+    },
+    {
+      'name': 'Ayesha Khan',
+      'avatar': 'assets/images/avatars/girl2.jpg',
+      'thumbnail':
+          'https://images.unsplash.com/photo-1507525428034-b723cf961d3e',
+      'isSeen': false,
+    },
+    {
+      'name': 'Hiro Tanaka',
+      'avatar': 'assets/images/avatars/men1.jpg',
+      'thumbnail':
+          'https://images.unsplash.com/photo-1501785888041-af3ef285b470',
+      'isSeen': true,
+    },
+    {
+      'name': 'Mei Lin',
+      'avatar': 'assets/images/avatars/girl3.jpg',
+      'thumbnail': 'https://images.unsplash.com/photo-1549921296-3a6b0353d94c',
+      'isSeen': false,
+    },
+    {
+      'name': 'Daniel Lee',
+      'avatar': 'assets/images/avatars/men2.jpg',
+      'thumbnail':
+          'https://images.unsplash.com/photo-1607082352311-069fdbf1f5a2',
+      'isSeen': true,
+    },
+    {
+      'name': 'Ravi Sharma',
+      'avatar': 'assets/images/avatars/men3.jpg',
+      'thumbnail':
+          'https://images.unsplash.com/photo-1470770841072-f978cf4d019e',
+      'isSeen': true,
+    },
+    {
+      'name': 'Sophia Miles',
+      'avatar': 'assets/images/avatars/girl4.jpg',
+      'thumbnail':
+          'https://images.unsplash.com/photo-1501973801540-537f08ccae7d',
+      'isSeen': false,
+    },
+    {
+      'name': 'Jin Park',
+      'avatar': 'assets/images/avatars/men1.jpg',
+      'thumbnail':
+          'https://images.unsplash.com/photo-1506744038136-46273834b3fb',
+      'isSeen': false,
+    },
+    {
+      'name': 'Grace Kelly',
+      'avatar': 'assets/images/avatars/girl1.jpg',
+      'thumbnail':
+          'https://images.unsplash.com/photo-1496483648148-47c686dc86a8',
+      'isSeen': true,
+    },
+    {
+      'name': 'Fatima Noor',
+      'avatar': 'assets/images/avatars/girl2.jpg',
+      'thumbnail': 'https://images.unsplash.com/photo-1549692520-acc6669e2f0c',
+      'isSeen': false,
+    },
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return  Container(
     decoration: BoxDecoration(
       color: AppColors.white,
       border: Border(bottom: BorderSide(color: AppColors.borderGrey, width: 5)),
@@ -29,7 +104,10 @@ Widget buildStoriesList(List stories) {
       ),
     ),
   );
+  }
 }
+
+
 
 Widget _buildMyStoryCard() {
   return Padding(

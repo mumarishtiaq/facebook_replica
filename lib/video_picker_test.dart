@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:facebook_replica/image_picker.dart';
+import 'package:facebook_replica/posts_view.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:video_player/video_player.dart';
@@ -84,6 +85,8 @@ class _VideoPickerTestState extends State<VideoPickerTest> {
 
     final ext = media!.path.split('.').last.toLowerCase();
     isVideo = ext == 'mp4' || ext == 'mov' || ext == 'avi';
+
+   
 
     if(isVideo)
     {
